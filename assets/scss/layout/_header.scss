@@ -1,0 +1,227 @@
+///
+/// Big Picture by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* Header */
+
+	#header {
+		position: fixed;
+		z-index: 10000;
+		left: 0;
+		top: 0;
+		width: 100%;
+		background: transparentize(_palette(bg), 0.05);
+		height: 3em;
+		line-height: 3em;
+		box-shadow: 0 0 0.15em 0 rgba(0,0,0,0.1);
+
+		h1 {
+			position: absolute;
+			left: 1em;
+			top: 0;
+			height: 3em;
+			line-height: 3em;
+			cursor: default;
+
+			a {
+				font-size: 1.25em;
+			}
+		}
+
+		nav {
+			position: absolute;
+			right: 0.5em;
+			top: 0;
+			height: 3em;
+			line-height: 3em;
+
+			ul {
+				margin: 0;
+
+				li {
+					display: inline-block;
+					margin-left: 0.5em;
+					font-size: 0.9em;
+
+					a {
+						display: block;
+						color: inherit;
+						text-decoration: none;
+						height: 3em;
+						line-height: 3em;
+						padding: 0 0.5em 0 0.5em;
+						outline: 0;
+					}
+				}
+			}
+		}
+
+		@include breakpoint('<=small') {
+			height: 2.5em;
+			line-height: 2.5em;
+
+			h1 {
+				text-align: center;
+				position: relative;
+				left: 0;
+				top: 0;
+				height: 2.5em;
+				line-height: 2.5em;
+
+				a {
+					font-size: 1em;
+				}
+			}
+
+			nav {
+				display: none;
+			}
+		}
+	}
+
+	body {
+		padding-top: 3em;
+
+		@include breakpoint('<=small') {
+			padding-top: 2.5em;
+		}
+	}
+/* Header (enhanced) */
+
+	#header {
+		@include vendor('transition', ('background-color 0.3s ease', 'box-shadow 0.3s ease', 'height 0.3s ease', 'line-height 0.3s ease'));
+		-webkit-backdrop-filter: saturate(160%) blur(12px);
+		backdrop-filter: saturate(160%) blur(12px);
+		background: transparentize(_palette(bg), 0.28);
+		height: 3.75em;
+		line-height: 3.75em;
+
+		// Scroll progress bar. A real element, not a pseudo-element: GSAP
+		// cannot target ::after.
+		.header-progress {
+			background: linear-gradient(to right, _palette(accent1, bg) 0%, _palette(accent2, bg) 100%);
+			bottom: 0;
+			display: block;
+			height: 2px;
+			left: 0;
+			position: absolute;
+			@include vendor('transform', 'scaleX(0)');
+			transform-origin: 0 50%;
+			width: 100%;
+		}
+
+		&.is-scrolled {
+			background: transparentize(_palette(bg), 0.05);
+			box-shadow: 0 0.15em 0.6em 0 rgba(0,0,0,0.12);
+			height: 3em;
+			line-height: 3em;
+		}
+
+		h1 {
+			@include vendor('transition', ('height 0.3s ease', 'line-height 0.3s ease'));
+			background: linear-gradient(to right, _palette(fg) 0%, _palette(accent1, bg) 100%);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			font-size: 1.1em;
+			height: 3.4em;
+			letter-spacing: -0.025em;
+			line-height: 3.4em;
+		}
+
+		&.is-scrolled h1 {
+			height: 2.7em;
+			line-height: 2.7em;
+		}
+
+		nav {
+			@include vendor('transition', ('height 0.3s ease', 'line-height 0.3s ease'));
+			height: 3.75em;
+			line-height: 3.75em;
+			right: 1em;
+
+			ul li {
+				margin-left: 0.15em;
+
+				a {
+					@include vendor('transition', 'color #{_duration(transition)} ease-in-out');
+					border-radius: 2em;
+					height: auto;
+					line-height: 1em;
+					padding: 0.65em 0.9em;
+					position: relative;
+
+					// Animated underline, grows from the centre.
+					&:before {
+						@include vendor('transition', 'transform 0.25s ease');
+						background: linear-gradient(to right, _palette(accent1, bg) 0%, _palette(accent2, bg) 100%);
+						border-radius: 2px;
+						bottom: 0.1em;
+						content: '';
+						display: block;
+						height: 2px;
+						left: 0.9em;
+						position: absolute;
+						right: 0.9em;
+						@include vendor('transform', 'scaleX(0)');
+					}
+
+					&:hover,
+					&.is-active {
+						color: darken(_palette(accent1, bg), 12%);
+
+						&:before {
+							@include vendor('transform', 'scaleX(1)');
+						}
+					}
+
+					&.is-active {
+						font-weight: _font(weight-bold);
+					}
+				}
+			}
+		}
+
+		&.is-scrolled nav {
+			height: 3em;
+			line-height: 3em;
+		}
+
+		@include breakpoint('<=large') {
+			nav ul li {
+				font-size: 0.8em;
+
+				a {
+					padding: 0.65em 0.7em;
+
+					&:before {
+						left: 0.7em;
+						right: 0.7em;
+					}
+				}
+			}
+		}
+
+		@include breakpoint('<=small') {
+			&, &.is-scrolled {
+				height: 2.5em;
+				line-height: 2.5em;
+
+				h1 {
+					font-size: 1em;
+					height: 2.5em;
+					line-height: 2.5em;
+				}
+			}
+		}
+	}
+
+	body {
+		padding-top: 3.75em;
+
+		@include breakpoint('<=small') {
+			padding-top: 2.5em;
+		}
+	}

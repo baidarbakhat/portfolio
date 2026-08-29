@@ -1,0 +1,251 @@
+// Cards use the site's teal action colour. main.scss declares $teal after this
+// partial is imported, so the value is restated here rather than shared.
+$card-accent: #1abc9c;
+$card-accent-dark: #0f9b7f;
+
+///
+/// Big Picture by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* Gallery */
+
+	.gallery {
+		@include vendor('display', 'flex');
+		@include vendor('flex-wrap', 'wrap');
+		width: 45em;
+		max-width: 100%;
+		margin: 0 auto _size(element-margin) auto;
+
+		article {
+			@include vendor('transition', (
+				'transform 1s ease',
+				'opacity 1s ease'
+			));
+			@include vendor('transform', 'translateX(0)');
+			width: 50%;
+			position: relative;
+			opacity: 1.0;
+
+			.image {
+				margin: 0;
+				display: block;
+			}
+
+			@for $i from 1 through 23 {
+				&:nth-last-child(#{$i}n) {
+					@include vendor('transition-delay', '#{(0.05s * $i)}');
+				}
+
+				&:nth-last-child(#{$i + 1}n) {
+					@include vendor('transition-delay', '#{(0.05s * $i)}');
+				}
+			}
+
+		}
+
+		// Card variant: reuses the gallery's flex grid, stagger delays and
+		// from-left/from-right scroll transitions, but renders text cards
+		// instead of images.
+		&.cards {
+			width: 52em;
+
+			article {
+				@include vendor('display', 'flex');
+				padding: 0.6em;
+			}
+
+			// Hover lives on .card, never on the article — the article carries
+			// the from-left/from-right scroll transform, and a second transform
+			// on the same element would cancel it.
+			.card {
+				@include vendor('transition', ('border-color #{_duration(transition)} ease-in-out', 'box-shadow #{_duration(transition)} ease-in-out', 'transform #{_duration(transition)} ease-in-out'));
+				@include vendor('flex', '1');
+				background: _palette(bg);
+				border: solid 1px _palette(border);
+				border-radius: 0.85em;
+				box-shadow: 0 0.15em 0.5em 0 rgba(31, 35, 40, 0.05);
+				padding: 3em 1.75em 2.25em 1.75em;
+				position: relative;
+				text-align: center;
+
+				&:hover {
+					@include vendor('transform', 'translateY(-0.65em)');
+					border-color: $card-accent;
+					box-shadow: 0 1.1em 2.2em 0 rgba(31, 35, 40, 0.13);
+				}
+			}
+
+			// The icon sits in a tinted disc so it reads as deliberate rather
+			// than as a stray glyph.
+			.card-icon {
+				@include vendor('transition', ('background-color #{_duration(transition)} ease-in-out', 'color #{_duration(transition)} ease-in-out', 'transform #{_duration(transition)} ease-in-out'));
+				background: transparentize($card-accent, 0.9);
+				border-radius: 100%;
+				color: $card-accent;
+				display: inline-block;
+				font-size: 1.5em;
+				height: 2.4em;
+				line-height: 2.4em;
+				margin: 0 0 0.7em 0;
+				width: 2.4em;
+			}
+
+			.card:hover .card-icon {
+				@include vendor('transform', 'scale(1.08)');
+				background: $card-accent;
+				color: #ffffff;
+			}
+
+			.card h3 {
+				@include vendor('transition', 'color #{_duration(transition)} ease-in-out');
+				font-size: 1.35em;
+				line-height: 1.3em;
+				margin: 0 0 0.5em 0;
+			}
+
+			.card:hover h3 {
+				color: $card-accent-dark;
+			}
+
+			.card p {
+				font-size: 0.9em;
+				line-height: 1.65em;
+				margin: 0 0 1.25em 0;
+				opacity: 0.85;
+			}
+
+			.card-year {
+				background: transparentize($card-accent, 0.9);
+				border: solid 1px transparentize($card-accent, 0.7);
+				border-radius: 2em;
+				color: $card-accent-dark;
+				font-size: 0.7em;
+				font-weight: _font(weight-bold);
+				letter-spacing: 0.15em;
+				padding: 0.35em 0.95em;
+				position: absolute;
+				right: 1.2em;
+				top: 1.2em;
+			}
+
+			.card ul.tags {
+				@include vendor('display', 'flex');
+				@include vendor('flex-wrap', 'wrap');
+				@include vendor('justify-content', 'center');
+				margin: 0;
+				padding: 0;
+
+				li {
+					@include vendor('transition', ('background-color #{_duration(transition)} ease-in-out', 'border-color #{_duration(transition)} ease-in-out'));
+					background: _palette(bg-alt);
+					border: solid 1px _palette(border);
+					border-radius: 0.4em;
+					color: _palette(fg);
+					display: inline-block;
+					font-size: 0.72em;
+					font-weight: _font(weight-bold);
+					letter-spacing: 0.04em;
+					line-height: 1.5em;
+					margin: 0 0.35em 0.4em 0;
+					padding: 0.35em 0.8em;
+					white-space: nowrap;
+				}
+			}
+
+			.card:hover ul.tags li {
+				background: transparentize($card-accent, 0.92);
+				border-color: transparentize($card-accent, 0.72);
+			}
+
+			.card-link {
+				@include vendor('transition', ('background-color #{_duration(transition)} ease-in-out', 'box-shadow #{_duration(transition)} ease-in-out', 'transform #{_duration(transition)} ease-in-out'));
+				background-color: $card-accent;
+				border-radius: 2em;
+				box-shadow: 0 0.35em 0.9em 0 transparentize($card-accent, 0.65);
+				color: #ffffff;
+				display: inline-block;
+				font-size: 0.78em;
+				font-weight: _font(weight-bold);
+				letter-spacing: 0.12em;
+				line-height: 1em;
+				margin: 1.1em 0 0 0;
+				padding: 1em 1.9em;
+				text-decoration: none;
+				text-transform: uppercase;
+
+				.icon {
+					margin-right: 0.5em;
+				}
+
+				&:hover {
+					@include vendor('transform', 'translateY(-0.2em)');
+					background-color: lighten($card-accent, 6);
+					box-shadow: 0 0.6em 1.3em 0 transparentize($card-accent, 0.55);
+				}
+
+				&:active {
+					@include vendor('transform', 'translateY(0)');
+					background-color: $card-accent-dark;
+				}
+			}
+
+			@include breakpoint('<=small') {
+				.card {
+					padding: 2em 1.25em 1.75em 1.25em;
+				}
+
+				.card h3 {
+					font-size: 1.2em;
+				}
+			}
+
+			@include breakpoint('<=xsmall') {
+				article {
+					padding: 0.4em 0;
+				}
+			}
+
+			// The lift and the icon pop are decorative; the colour changes
+			// still signal hover without any movement.
+			@media (prefers-reduced-motion: reduce) {
+				.card:hover,
+				.card:hover .card-icon,
+				.card-link:hover {
+					@include vendor('transform', 'none');
+				}
+			}
+		}
+
+		&.inactive {
+			article {
+				opacity: 0;
+
+				&.from-left {
+					@include vendor('transform', 'translateX(-14em)');
+				}
+
+				&.from-right {
+					@include vendor('transform', 'translateX(14em)');
+				}
+
+				&.from-top {
+					@include vendor('transform', 'translateY(-7em)');
+				}
+
+				&.from-bottom {
+					@include vendor('transform', 'translateY(7em)');
+				}
+			}
+		}
+
+		@include breakpoint('<=xsmall') {
+			@include vendor('flex-wrap', 'nowrap');
+			@include vendor('flex-direction', 'column');
+
+			article {
+				width: 100%;
+			}
+		}
+	}

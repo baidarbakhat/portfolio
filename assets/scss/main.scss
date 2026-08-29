@@ -1,0 +1,1195 @@
+@import 'libs/vars';
+@import 'libs/functions';
+@import 'libs/mixins';
+@import 'libs/vendor';
+@import 'libs/breakpoints';
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900');
+@import url('fontawesome-all.min.css');
+
+/*
+	Big Picture by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+*/
+
+// Breakpoints.
+
+	@include breakpoints((
+		xxlarge: ( 1681px,  1920px ),
+		xlarge:  ( 1281px,  1680px ),
+		large:   ( 1001px,  1280px ),
+		medium:  ( 737px,   1000px ),
+		small:   ( 481px,   736px  ),
+		xsmall:  ( null,    480px  )
+	));
+
+// Base.
+
+	@import 'base/reset';
+	@import 'base/page';
+	@import 'base/typography';
+
+// Component.
+
+	@import 'components/box';
+	@import 'components/button';
+	@import 'components/form';
+	@import 'components/icon';
+	@import 'components/image';
+	@import 'components/list';
+	@import 'components/actions';
+	@import 'components/icons';
+	@import 'components/section';
+	@import 'components/table';
+	@import 'components/poptrox-popup';
+	@import 'components/gallery';
+
+// Layout.
+
+	@import 'layout/header';
+	@import 'layout/main';
+	@import 'layout/footer';
+
+// Teal accent, outside the site palette. Shared by the hero, Contact and Certificates,
+// so it has to be declared before the first block that uses it.
+$teal: #1abc9c;
+$teal-dark: #0f9b7f;
+$error: #d0342c;
+
+/* Intro */
+
+	#intro {
+		background: url('../img/ui/overlay.png'), url('../img/backgrounds/intro.jpg');
+		background-size: 256px 256px, cover;
+		background-attachment: fixed, fixed;
+		background-position: top left, bottom center;
+		background-repeat: repeat, no-repeat;
+		overflow: hidden;
+		position: relative;
+
+		// Background video. Sits under everything; the background image above
+		// stays behind it as the fallback when the video can't play.
+		.hero-video {
+			height: 100%;
+			left: 0;
+			object-fit: cover;
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			z-index: 0;
+		}
+
+		// Readability layer between video and text.
+		.hero-video-overlay {
+			background: rgba(0, 0, 0, 0.55);
+			bottom: 0;
+			left: 0;
+			pointer-events: none;
+			position: absolute;
+			right: 0;
+			top: 0;
+			z-index: 1;
+		}
+
+		// Stacking only — no layout, size or type change. Without this the
+		// content would paint under the overlay.
+		> .content {
+			position: relative;
+			z-index: 2;
+		}
+
+		// The "More" arrow is a sibling of .content, not a child, so it needs
+		// its own lift above the overlay.
+		> .button.down.anchored {
+			z-index: 2;
+		}
+
+		// An autoplaying loop is exactly what a reduced-motion preference asks
+		// you not to do. Hiding the video reveals the background image, which
+		// is the same still the poster uses.
+		@media (prefers-reduced-motion: reduce) {
+			.hero-video {
+				display: none;
+			}
+		}
+	}
+
+/* One */
+
+	#one {
+		// Photo is scaled below full-bleed; the gradient behind it matches the
+		// photo's own backdrop (sampled from its right edge) so the two blend.
+		background: url('../img/ui/overlay.png'), url('../img/backgrounds/about.jpg'), linear-gradient(to bottom, #68778e 0%, #757577 55%, #746c61 100%);
+		background-size: 256px 256px, 68% auto, 100% 100%;
+		background-attachment: fixed, fixed, fixed;
+		background-position: top left, left top, center center;
+		background-repeat: repeat, no-repeat, no-repeat;
+
+		// Pull the card inward from the right edge, clear of the subject.
+		> .content {
+			@include vendor('transition', ('transform #{_duration(fade-in)} ease', 'opacity #{_duration(fade-in)} ease'));
+			margin-right: 8%;
+			opacity: 1.0;
+		}
+
+		&.inactive > .content {
+			@include vendor('transform', 'translateY(3em)');
+			opacity: 0;
+		}
+
+		@include breakpoint('<=small') {
+			background-size: 256px 256px, cover, 100% 100%;
+			background-position: top left, center center, center center;
+
+			> .content {
+				margin-right: 0;
+			}
+		}
+	}
+
+/* Two */
+
+	#two {
+		background: url('../img/ui/overlay.png'), url('../img/backgrounds/two.jpg');
+		background-size: 256px 256px, cover;
+		background-attachment: fixed, fixed;
+		background-position: top left, center center;
+
+		> .content {
+			width: 56em;
+			max-width: calc(100% - 4em);
+		}
+
+		@include breakpoint('<=medium') {
+			> .content {
+				width: 46em;
+			}
+		}
+
+		@include breakpoint('<=small') {
+			> .content {
+				width: 100%;
+				max-width: 100%;
+			}
+		}
+	}
+
+/* Skills */
+
+	.skills {
+		@include vendor('display', 'flex');
+		@include vendor('flex-wrap', 'wrap');
+		margin: 0 0 -1.5em -2em;
+		text-align: left;
+		width: calc(100% + 2em);
+
+		.skill-group {
+			padding: 0 0 1.5em 2em;
+			width: 33.3333%;
+
+			&.wide {
+				width: 100%;
+			}
+
+			h3 {
+				border-bottom: solid 1px _palette(border);
+				font-size: 0.8em;
+				letter-spacing: 0.15em;
+				line-height: 1.5em;
+				margin: 0 0 0.9em 0;
+				padding: 0 0 0.6em 0;
+				text-transform: uppercase;
+
+				.icon {
+					color: _palette(accent1, bg);
+					margin-right: 0.5em;
+				}
+			}
+		}
+
+		@include breakpoint('<=large') {
+			.skill-group {
+				width: 50%;
+			}
+		}
+
+		// Applied by main.js only once Motion is confirmed loaded, so a
+		// failed script load leaves the pills visible instead of blank.
+		&.is-motion ul.pills li {
+			opacity: 0;
+		}
+
+		@include breakpoint('<=small') {
+			margin-left: 0;
+			width: 100%;
+
+			.skill-group {
+				padding-left: 0;
+				width: 100%;
+			}
+		}
+	}
+
+/* Pills (shared by Skills and Languages) */
+
+	ul.pills {
+		@include vendor('display', 'flex');
+		@include vendor('flex-wrap', 'wrap');
+		margin: 0;
+		padding: 0;
+
+		li {
+				@include vendor('transition', ('background-color #{_duration(transition)} ease-in-out', 'border-color #{_duration(transition)} ease-in-out', 'color #{_duration(transition)} ease-in-out', 'transform #{_duration(transition)} ease-in-out'));
+				background: _palette(bg-alt);
+				border: solid 1px _palette(border);
+				border-radius: 2em;
+				color: _palette(fg);
+				cursor: default;
+				display: inline-block;
+				font-size: 0.75em;
+				letter-spacing: 0.025em;
+				line-height: 1.5em;
+				margin: 0 0.45em 0.45em 0;
+				padding: 0.4em 1em 0.4em 1em;
+				white-space: nowrap;
+
+			&:hover {
+				@include vendor('transform', 'translateY(-0.15em)');
+				background: _palette(accent1, bg);
+				border-color: _palette(accent1, bg);
+				color: _palette(accent1, fg);
+			}
+		}
+	}
+
+/* Contact */
+
+	#contact {
+		overflow: hidden;
+		padding-bottom: 0;
+
+		.box {
+			@include vendor('transition', 'transform #{_duration(fade-in)} ease');
+			@include vendor('transform', 'translateY(0)');
+			position: relative;
+		}
+
+		&.inactive {
+			.box {
+				@include vendor('transform', 'translateY(100%)');
+			}
+		}
+
+		@include breakpoint('<=small') {
+			.box {
+				padding: 1.5em 1.5em 2em 1.5em;
+			}
+		}
+
+		@include breakpoint('<=xsmall') {
+			.box {
+				padding: 1em 1em 2em 1em;
+			}
+		}
+
+		// Emphasis.
+		.content > header {
+			h2 {
+				font-size: 3.25em;
+				line-height: 1.15em;
+			}
+
+			p {
+				font-size: 1.15em;
+				line-height: 1.75em;
+				opacity: 1;
+
+				a {
+					font-weight: _font(weight-bold);
+					text-decoration: none;
+					border-bottom: solid 2px transparentize($teal, 0.5);
+					color: $teal;
+
+					&:hover {
+						border-bottom-color: $teal;
+						color: $teal-dark;
+					}
+				}
+			}
+		}
+
+		input[type="text"],
+		input[type="email"],
+		textarea {
+			border-color: #c2c6c9;
+			color: _palette(fg);
+
+			&:focus {
+				border-color: $teal;
+				box-shadow: 0 0 0 1px $teal;
+			}
+		}
+
+		::-webkit-input-placeholder { color: _palette(fg); opacity: 0.75; }
+		::-moz-placeholder { color: _palette(fg); opacity: 0.75; }
+		:-ms-input-placeholder { color: _palette(fg); opacity: 0.75; }
+		::placeholder { color: _palette(fg); opacity: 0.75; }
+
+		input[type="submit"] {
+			font-weight: _font(weight-bold);
+			letter-spacing: 0.05em;
+		}
+
+		@include breakpoint('<=small') {
+			.content > header {
+				h2 { font-size: 2.25em; }
+				p { font-size: 1em; }
+			}
+		}
+
+		// Doodles.
+		// Ornamental layer; pointer-events:none so a click always reaches
+		// whatever sits underneath it.
+		.doodles {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			pointer-events: none;
+			z-index: 0;
+		}
+
+		// .content is in normal flow, so it needs an explicit stacking
+		// context to sit reliably above the doodle layer.
+		.content {
+			position: relative;
+			z-index: 1;
+		}
+
+		.doodle {
+			@include vendor('animation', 'doodle-float 5s ease-in-out infinite, doodle-fade 5s ease-in-out infinite');
+			display: block;
+			height: auto;
+			opacity: 0.75;
+			position: absolute;
+			will-change: transform, opacity;
+
+			// Outline only. non-scaling-stroke pins the line to 2.5px on
+			// screen, so all four read at the same weight despite having
+			// different viewBox scales.
+			path, rect, circle {
+				fill: none;
+				stroke: $teal;
+				stroke-linecap: round;
+				stroke-linejoin: round;
+				stroke-width: 2.5;
+				vector-effect: non-scaling-stroke;
+			}
+		}
+
+		// Scattered across both gutters at three different heights, each on
+		// its own delay so the six never breathe in unison.
+		.doodle-1 { @include vendor('animation-delay', '0s');   top: 12%; left: 5%;  width: 10em; }
+		.doodle-2 { @include vendor('animation-delay', '1s');   top: 68%; left: 8%;  width: 10em; }
+		.doodle-3 { @include vendor('animation-delay', '1.5s'); top: 13%; right: 5%; width: 9.5em; }
+		.doodle-4 { @include vendor('animation-delay', '2s');   top: 69%; right: 7%; width: 9.5em; }
+
+		// The two mid-height ones ride a slower 6s cycle, so the whole set
+		// never settles into a single visible rhythm.
+		.doodle-5 {
+			@include vendor('animation-delay', '2.5s');
+			@include vendor('animation-duration', '6s');
+			top: 42%; left: 2.5%; width: 6em;
+		}
+
+		.doodle-6 {
+			@include vendor('animation-delay', '3s');
+			@include vendor('animation-duration', '6s');
+			top: 44%; right: 2.5%; width: 6.5em;
+		}
+
+		// Contact method icons: a static reference row, deliberately not animated.
+		.contact-icons {
+			@include vendor('display', 'flex');
+			@include vendor('flex-wrap', 'wrap');
+			@include vendor('justify-content', 'center');
+			list-style: none;
+			margin: 1.5em 0 0 0;
+			padding: 0;
+
+			li {
+				margin: 0.5em 0.85em 0 0.85em;
+				padding: 0;
+			}
+
+			a {
+				@include vendor('transition', 'background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease');
+				background-color: transparentize($teal, 0.94);
+				border: solid 2px transparentize($teal, 0.65);
+				border-radius: 100%;
+				color: $teal;
+				display: inline-block;
+				font-size: 0.9em;
+				height: 2.9em;
+				line-height: 2.6em;
+				text-align: center;
+				width: 2.9em;
+
+				.label {
+					display: none;
+				}
+
+				&:hover {
+					@include vendor('transform', 'translateY(-3px)');
+					background-color: $teal;
+					border-color: $teal;
+					color: #ffffff;
+				}
+			}
+		}
+
+		// Form validation + send status.
+		// The section is centre-aligned; field-level messages read better
+		// flush left, under the input they belong to.
+		.form-error {
+			color: $error;
+			display: block;
+			font-size: 0.8em;
+			letter-spacing: 0;
+			line-height: 1.4em;
+			margin: 0.4em 0 0 0;
+			text-align: left;
+		}
+
+		// Ties on specificity with the teal focus rule above, so this has to
+		// stay later in the output to win.
+		input.invalid,
+		textarea.invalid {
+			border-color: $error;
+
+			&:focus {
+				border-color: $error;
+				box-shadow: 0 0 0 1px $error;
+			}
+		}
+
+		// Height is reserved so the box does not jump when a status appears.
+		.form-status {
+			font-size: 0.9em;
+			line-height: 1.5em;
+			margin: 1.25em 0 0 0;
+			min-height: 1.5em;
+
+			&.is-busy { opacity: 0.7; }
+			&.is-success { color: $teal-dark; font-weight: _font(weight-bold); }
+			&.is-error { color: $error; }
+		}
+
+		input[type="submit"]:disabled {
+			cursor: default;
+			opacity: 0.6;
+
+			// Without this the hover colour still fires over a disabled button.
+			&:hover { background-color: $teal; }
+		}
+
+		// The base button rule only transitions background-color, so transform
+		// has to be added here or the press would snap instead of scale.
+		input[type="submit"] {
+			@include vendor('transition', 'background-color 0.2s ease-in-out, transform 0.12s ease-in-out');
+			background-color: $teal;
+
+			&:hover { background-color: $teal-dark; }
+
+			&:active {
+				@include vendor('transform', 'scale(0.96)');
+				background-color: darken($teal-dark, 5);
+			}
+		}
+
+		// Tablet: shrink and pull nearer the edge so the doodles keep clear
+		// of the 45em content column as the viewport narrows.
+		@include breakpoint('<=large') {
+			.doodle-1, .doodle-2, .doodle-3, .doodle-4 { width: 6.5em; }
+
+			.doodle-1 { left: 2%; }
+			.doodle-2 { left: 3%; }
+			.doodle-3 { right: 2%; }
+			.doodle-4 { right: 3%; }
+
+			// The mid-height pair sits level with the widest part of the
+			// form, so it is the first to lose its clearance — drop it here.
+			.doodle-5, .doodle-6 { display: none; }
+		}
+
+		// Below this the content column reaches the edges — no room left,
+		// so the doodles go rather than overlap the form.
+		@include breakpoint('<=medium') {
+			.doodles { display: none; }
+		}
+
+		@include breakpoint('<=small') {
+			.contact-icons {
+				margin-top: 1.25em;
+
+				a { font-size: 0.8em; }
+			}
+		}
+
+		// Honour a reduced-motion preference: keep the doodles, drop the movement.
+		@media (prefers-reduced-motion: reduce) {
+			.doodle {
+				@include vendor('animation', 'none');
+				opacity: 0.7;
+			}
+		}
+	}
+
+	@include keyframes('doodle-float') {
+		0%, 100% { @include vendor('transform', 'translateY(0)'); }
+		50% { @include vendor('transform', 'translateY(-20px)'); }
+	}
+
+	@include keyframes('doodle-fade') {
+		0%, 100% { opacity: 0.6; }
+		50% { opacity: 1; }
+	}
+
+/* Hero */
+
+	#intro {
+		.hero-greeting {
+			font-size: 1.15em;
+			letter-spacing: 0.2em;
+			margin: 0 0 0.35em 0;
+			opacity: 0.75;
+			text-transform: uppercase;
+		}
+
+		.hero-accent {
+			background: linear-gradient(to right, _palette(accent1, bg) 0%, _palette(accent2, bg) 100%);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			color: _palette(accent2, bg);
+		}
+
+		.hero-tagline {
+			font-size: 1.25em;
+			font-weight: _font(weight-bold);
+			letter-spacing: 0.05em;
+			margin: 0.5em 0 0.75em 0;
+		}
+
+		.hero-desc {
+			font-size: 1em;
+			margin: 0 auto 2em auto;
+			max-width: 30em;
+			opacity: 0.85;
+		}
+
+		.hero-actions {
+			margin-bottom: 0;
+
+			.button {
+				min-width: 12em;
+
+				// The template's pale sage reads as washed-out against the
+				// dark code video. Teal is already the site's second accent
+				// (Contact), and it holds up over a busy moving background.
+				// .style2 is excluded so the outlined "Download CV" keeps
+				// its transparent fill.
+				&:not(.style2) {
+					background-color: $teal;
+					box-shadow: 0 0.5em 1.5em 0 rgba(0, 0, 0, 0.35);
+					color: #ffffff;
+
+					&:hover { background-color: lighten($teal, 6); }
+					&:active { background-color: $teal-dark; }
+				}
+			}
+		}
+
+		@include breakpoint('<=small') {
+			.hero-greeting { font-size: 0.9em; }
+			.hero-tagline { font-size: 1em; }
+			.hero-desc { margin-bottom: 1.5em; }
+		}
+	}
+
+/* Education */
+
+	.timeline {
+		margin: 0 auto 3em auto;
+		max-width: 34em;
+		padding: 0;
+		position: relative;
+		text-align: left;
+
+		// Real elements, not borders/pseudo-elements: GSAP cannot target ::before.
+		.timeline-line {
+			background: _palette(border);
+			bottom: 0;
+			display: block;
+			left: 0;
+			position: absolute;
+			top: 0;
+			transform-origin: 50% 0;
+			width: 2px;
+		}
+
+		.timeline-dot {
+			background: _palette(accent1, bg);
+			border: solid 2px _palette(bg);
+			border-radius: 100%;
+			box-shadow: 0 0 0 4px transparentize(_palette(accent1, bg), 0.82);
+			display: block;
+			height: 0.9em;
+			left: -0.55em;
+			position: absolute;
+			top: 0.4em;
+			width: 0.9em;
+		}
+
+		.timeline-item {
+			padding: 0 0 2em 2em;
+			position: relative;
+
+			&:last-child {
+				padding-bottom: 0;
+			}
+
+			h3 {
+				font-size: 1.15em;
+				line-height: 1.35em;
+				margin: 0 0 0.2em 0;
+
+				em {
+					font-style: normal;
+					font-weight: _font(weight);
+					opacity: 0.8;
+				}
+			}
+		}
+
+		.timeline-year {
+			color: _palette(accent1, bg);
+			display: block;
+			font-size: 0.75em;
+			font-weight: _font(weight-bold);
+			letter-spacing: 0.15em;
+			margin: 0 0 0.4em 0;
+			text-transform: uppercase;
+
+			em {
+				font-style: normal;
+				opacity: 0.7;
+			}
+		}
+
+		.timeline-org {
+			font-size: 0.9em;
+			margin: 0;
+		}
+
+		.timeline-note {
+			font-size: 0.8em;
+			margin: 0;
+			opacity: 0.6;
+		}
+
+		@include breakpoint('<=small') {
+			margin-bottom: 2em;
+
+			.timeline-item {
+				padding-left: 1.5em;
+			}
+		}
+	}
+
+	.languages {
+		background: _palette(bg-alt);
+		border-radius: 0.75em;
+		margin: 0 auto;
+		max-width: 34em;
+		padding: 2em 2em 1.5em 2em;
+		text-align: left;
+
+		ul.lang-list {
+			margin: 0;
+			padding: 0;
+		}
+
+		.lang-item {
+			margin: 0 0 1.25em 0;
+
+			&:last-child { margin-bottom: 0; }
+		}
+
+		.lang-head {
+			@include vendor('display', 'flex');
+			@include vendor('align-items', 'baseline');
+			@include vendor('justify-content', 'space-between');
+			margin: 0 0 0.5em 0;
+		}
+
+		.lang-name {
+			font-size: 1.05em;
+			font-weight: _font(weight-bold);
+			letter-spacing: -0.015em;
+		}
+
+		.lang-level {
+			font-size: 0.7em;
+			letter-spacing: 0.1em;
+			opacity: 0.65;
+			text-transform: uppercase;
+		}
+
+		.lang-bar {
+			background: _palette(border);
+			border-radius: 2em;
+			height: 0.5em;
+			overflow: hidden;
+			width: 100%;
+
+			// Width is animated from 0 by GSAP using each bar's data-level.
+			span {
+				background: linear-gradient(to right, _palette(accent1, bg) 0%, _palette(accent2, bg) 100%);
+				border-radius: 2em;
+				display: block;
+				height: 100%;
+				width: 0;
+			}
+		}
+
+		h3 {
+			border-bottom: solid 1px _palette(border);
+			font-size: 0.8em;
+			letter-spacing: 0.15em;
+			line-height: 1.5em;
+			margin: 0 0 1.25em 0;
+			padding: 0 0 0.6em 0;
+			text-transform: uppercase;
+
+			.icon {
+				color: _palette(accent1, bg);
+				margin-right: 0.5em;
+			}
+		}
+	}
+
+/* Certificates */
+
+	#certificates {
+		> .content {
+			width: 68em;
+		}
+	}
+
+	.certs-slider {
+		overflow: visible;
+		padding: 1em 0 4em 0;
+		width: 100%;
+
+		// Layering: side slides sit behind the centred one, controls above both.
+		.swiper-slide {
+			@include vendor('transition', 'opacity 0.4s ease');
+			height: auto;
+			opacity: 0.45;
+			text-align: center;
+			width: 26em;
+			max-width: 78%;
+			z-index: 1;
+
+			&.swiper-slide-active {
+				opacity: 1;
+				z-index: 3;
+			}
+
+			&.swiper-slide-next,
+			&.swiper-slide-prev {
+				opacity: 0.75;
+				z-index: 2;
+			}
+
+			h3 {
+				font-size: 0.85em;
+				line-height: 1.4em;
+				margin: 1em 0 0 0;
+
+				em {
+					font-style: normal;
+					font-weight: _font(weight);
+					opacity: 0.6;
+				}
+			}
+		}
+
+		.cert-link {
+			border: 0;
+			cursor: zoom-in;
+			display: block;
+			position: relative;
+
+			img {
+				background: #ffffff;
+				border-radius: 0.5em;
+				box-shadow: 0 0.6em 1.5em 0 rgba(0, 0, 0, 0.3);
+				display: block;
+				height: auto;
+				width: 100%;
+			}
+		}
+
+		.swiper-button-next,
+		.swiper-button-prev {
+			background: #ffffff;
+			border-radius: 100%;
+			box-shadow: 0 0.15em 0.6em 0 rgba(0, 0, 0, 0.2);
+			color: _palette(accent1, bg);
+			height: 2.75em;
+			margin-top: -2em;
+			width: 2.75em;
+			z-index: 10;
+
+			&:after {
+				font-size: 1em;
+				font-weight: _font(weight-bold);
+			}
+		}
+
+		.swiper-pagination {
+			bottom: 0;
+			z-index: 10;
+
+			.swiper-pagination-bullet {
+				background: _palette(fg);
+			}
+
+			.swiper-pagination-bullet-active {
+				background: _palette(accent1, bg);
+			}
+		}
+
+		@include breakpoint('<=small') {
+			padding-bottom: 3em;
+
+			.swiper-slide {
+				max-width: 88%;
+				width: 22em;
+			}
+
+			.swiper-button-next,
+			.swiper-button-prev {
+				display: none;
+			}
+		}
+	}
+
+	@include breakpoint('<=small') {
+		#certificates > .content {
+			width: 100%;
+		}
+	}
+
+/* Lightbox */
+
+	.lightbox {
+		@include vendor('transition', ('opacity 0.3s ease', 'visibility 0.3s'));
+		background: rgba(31,35,40,0.92);
+		bottom: 0;
+		left: 0;
+		opacity: 0;
+		position: fixed;
+		right: 0;
+		top: 0;
+		visibility: hidden;
+		z-index: 100050;
+
+		&.is-visible {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.lightbox-stage {
+			@include vendor('transform', 'translate(-50%, -50%)');
+			left: 50%;
+			max-height: 90%;
+			max-width: 92%;
+			position: absolute;
+			text-align: center;
+			top: 50%;
+
+			img {
+				background: _palette(bg);
+				border-radius: 0.35em;
+				box-shadow: 0 1em 3em 0 rgba(0,0,0,0.5);
+				display: block;
+				margin: 0 auto;
+				max-height: 80vh;
+				max-width: 100%;
+				width: auto;
+			}
+		}
+
+		.lightbox-caption {
+			color: _palette(dark, fg);
+			font-size: 0.9em;
+			margin: 1em 0 0 0;
+		}
+
+		.lightbox-close {
+			@include vendor('transition', 'background-color #{_duration(transition)} ease-in-out');
+			background: rgba(255,255,255,0.15);
+			border: solid 2px _palette(dark, fg);
+			border-radius: 100%;
+			color: _palette(dark, fg);
+			cursor: pointer;
+			font-size: 1.5em;
+			height: 1.75em;
+			line-height: 1.6em;
+			padding: 0;
+			position: absolute;
+			right: 0.75em;
+			top: 0.75em;
+			width: 1.75em;
+			z-index: 2;
+
+			&:hover {
+				background: rgba(255,255,255,0.35);
+			}
+		}
+	}
+
+/* Outro */
+
+	// Ported from Aerial by HTML5 UP. Namespaced under #outro because Aerial's
+	// original #header/#footer/#bg/#overlay IDs collide with this page's own,
+	// and switched from position:fixed to absolute so it scrolls as a section.
+	@include keyframes('outro-bg') {
+		0% { @include vendor('transform', 'translate3d(-4%,0,0)'); }
+		100% { @include vendor('transform', 'translate3d(4%,0,0)'); }
+	}
+
+	#outro {
+		background: #348cb2;
+		color: _palette(dark, fg);
+		min-height: 100vh;
+		overflow: hidden;
+		position: relative;
+		text-align: center;
+
+		.outro-bg {
+			@include vendor('animation', 'outro-bg 24s linear infinite alternate');
+			@include vendor('backface-visibility', 'hidden');
+			background: #348cb2 url('../img/backgrounds/outro.jpg') center center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			height: 100%;
+			left: -8%;
+			position: absolute;
+			top: 0;
+			width: 116%;
+		}
+
+		.outro-overlay {
+			background-image: url('../img/ui/overlay-pattern.png'), url('../img/ui/overlay.svg');
+			background-position: top left, center center;
+			background-repeat: repeat, no-repeat;
+			background-size: auto, cover;
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+
+		.outro-inner {
+			@include vendor('display', 'flex');
+			@include vendor('align-items', 'center');
+			@include vendor('justify-content', 'center');
+			min-height: 100vh;
+			padding: 4em 1em 7em 1em;
+			position: relative;
+			width: 100%;
+			z-index: 1;
+		}
+
+		.outro-header {
+			cursor: default;
+			margin: 0;
+			width: 90%;
+
+			h2 {
+				font-size: 4.35em;
+				font-weight: _font(weight-bold);
+				letter-spacing: -0.035em;
+				line-height: 1em;
+				text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+			}
+
+			p {
+				font-size: 1.35em;
+				margin: 0.75em 0 0.25em 0;
+				padding: 0;
+				text-shadow: 0 2px 6px rgba(0,0,0,0.65);
+			}
+
+			// Role: a step below the tagline in the hierarchy.
+			.outro-role {
+				font-size: 1.05em;
+				letter-spacing: 0.08em;
+				margin: 0.5em 0 0 0;
+				opacity: 0.9;
+				text-transform: uppercase;
+			}
+
+			// Description: capped width so the line length stays readable and
+			// never spans the full viewport.
+			.outro-desc {
+				font-size: 0.95em;
+				line-height: 1.65em;
+				margin: 1.1em auto 0 auto;
+				max-width: 34em;
+				opacity: 0.85;
+			}
+
+			nav {
+				margin: 1.5em 0 0 0;
+
+				ul {
+					margin: 0;
+				}
+
+				li {
+					display: inline-block;
+					height: 5.35em;
+					line-height: 5.885em;
+					position: relative;
+					width: 5.35em;
+				}
+
+				a {
+					-webkit-tap-highlight-color: rgba(0,0,0,0);
+					border: 0;
+					color: inherit;
+					display: inline-block;
+					text-decoration: none;
+
+					&:before {
+						@include vendor('transition', 'all #{_duration(transition)} ease-in-out');
+						background-color: rgba(0,0,0,0.35);
+						border-radius: 100%;
+						border: solid 2px _palette(dark, fg);
+						box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+						display: block;
+						font-size: 1.75em;
+						height: 2.5em;
+						line-height: 2.5em;
+						position: relative;
+						top: 0;
+						text-align: center;
+						width: 2.5em;
+					}
+
+					&:hover {
+						font-size: 1.1em;
+
+						&:before {
+							background-color: rgba(255,255,255,0.175);
+							color: _palette(dark, fg);
+						}
+					}
+
+					&:active {
+						font-size: 0.95em;
+
+						&:before {
+							background-color: rgba(255,255,255,0.35);
+							color: _palette(dark, fg);
+						}
+					}
+
+					span {
+						display: none;
+					}
+				}
+			}
+		}
+
+		.outro-copyright {
+			background-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.5) 75%);
+			bottom: 0;
+			cursor: default;
+			font-size: 0.9em;
+			height: 6em;
+			left: 0;
+			line-height: 8em;
+			position: absolute;
+			text-align: center;
+			width: 100%;
+			z-index: 2;
+		}
+
+		body.is-touch & .outro-bg {
+			@include vendor('animation', 'none');
+			left: 0;
+			width: 100%;
+		}
+
+		@include breakpoint('<=small') {
+			.outro-header {
+				h2 { font-size: 2.5em; }
+				p { font-size: 1em; }
+
+				nav {
+					font-size: 1em;
+					padding: 0 1em;
+
+					a {
+						&:hover, &:active { font-size: 1em; }
+					}
+				}
+			}
+		}
+	}
+
+/* Lenis (smooth scroll) */
+
+	html.lenis,
+	html.lenis body {
+		height: auto;
+	}
+
+	.lenis.lenis-smooth {
+		scroll-behavior: auto !important;
+
+		[data-lenis-prevent] {
+			overscroll-behavior: contain;
+		}
+	}
+
+	.lenis.lenis-stopped {
+		overflow: hidden;
+	}
+
+/* Section snapping */
+
+	// Every section is at least one screen tall so a snap always lands on a
+	// full viewport. Sections with more content than that stay taller and are
+	// free-scrolled until their edge (see the snap logic in main.js).
+	#education,
+	#work,
+	#certificates,
+	#contact {
+		@include vendor('align-items', 'center');
+		min-height: calc(100vh - 3.75em);
+
+		@include breakpoint('<=small') {
+			@include vendor('align-items', 'stretch');
+			min-height: 0;
+		}
+	}
