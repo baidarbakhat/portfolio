@@ -2776,31 +2776,36 @@ input, select, textarea {
 		}
 
 		#intro header {
-			margin-bottom: 0.15em;
+			margin-bottom: 0.12em;
 		}
 
 		#intro header h2 {
-			font-size: clamp(2.4rem, 12vw, 4rem);
-			line-height: 0.95;
+			font-size: clamp(2.1rem, 10.5vw, 3.2rem);
+			line-height: 0.96;
+			letter-spacing: -0.04em;
+			max-width: 100%;
 		}
 
 		#intro .hero-greeting {
-			font-size: 0.75rem;
-			letter-spacing: 0.16em;
+			font-size: 0.7rem;
+			letter-spacing: 0.18em;
 		}
 
 		#intro .hero-tagline {
-			font-size: 0.8rem;
-			letter-spacing: 0.08em;
-			line-height: 1.55;
-			margin: 0.7em 0 1.2em 0;
-			padding: 0 0.1em;
+			font-size: 0.74rem;
+			letter-spacing: 0.04em;
+			line-height: 1.45;
+			margin: 0.55em 0 1em 0;
+			padding: 0 0.05em;
+			max-width: 100%;
+			word-break: keep-all;
+			overflow-wrap: normal;
 		}
 
 		#intro .hero-desc {
-			font-size: 0.9rem;
-			line-height: 1.5;
-			max-width: 19rem;
+			font-size: 0.88rem;
+			line-height: 1.45;
+			max-width: 18.5rem;
 			margin-bottom: 1.5em;
 		}
 
