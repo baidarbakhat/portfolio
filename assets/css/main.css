@@ -2712,7 +2712,7 @@ input, select, textarea {
 		font-size: 1.25em;
 		font-weight: 900;
 		letter-spacing: 0.05em;
-		margin: 0.35em 0 0.9em 0;
+		margin: 0.55em 0 1em 0;
 		line-height: 1.5;
 		padding: 0 0.25em;
 	}
@@ -2775,6 +2775,10 @@ input, select, textarea {
 			padding: 0 0.75rem;
 		}
 
+		#intro header {
+			margin-bottom: 0.15em;
+		}
+
 		#intro header h2 {
 			font-size: clamp(2.4rem, 12vw, 4rem);
 			line-height: 0.95;
@@ -2788,7 +2792,9 @@ input, select, textarea {
 		#intro .hero-tagline {
 			font-size: 0.8rem;
 			letter-spacing: 0.08em;
-			line-height: 1.5;
+			line-height: 1.55;
+			margin: 0.7em 0 1.2em 0;
+			padding: 0 0.1em;
 		}
 
 		#intro .hero-desc {
@@ -2808,6 +2814,11 @@ input, select, textarea {
 			-ms-flex-direction: column;
 			flex-direction: column;
 			gap: 0.9rem;
+			width: 100%;
+		}
+
+		#intro .hero-actions li {
+			width: 100%;
 		}
 
 		#intro .hero-actions .button {
@@ -2816,6 +2827,8 @@ input, select, textarea {
 			justify-content: center;
 			width: 100%;
 			min-width: 0;
+			padding: 0 1rem;
+			text-align: center;
 		}
 
 		#intro > .button.down.anchored {
