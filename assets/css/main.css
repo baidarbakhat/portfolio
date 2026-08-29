@@ -667,29 +667,17 @@ input, select, textarea {
 		border-radius: 3.5em;
 		color: #ffffff;
 		cursor: pointer;
-		display: inline-block;
-		height: 3.5em;
-		line-height: 3.5em;
-		outline: 0;
-		padding: 0 2em 0 2em;
-		position: relative;
-		text-align: center;
-		text-decoration: none;
-	}
-
-		input[type="button"].down,
-		input[type="submit"].down,
-		input[type="reset"].down,
-		.button.down,
-		button.down {
-			width: 5em;
-			height: 5em;
-			line-height: 4.5em;
-			padding: 0;
-			background-image: url("../img/ui/dark-arrow.svg");
-			background-position: center center;
-			background-repeat: no-repeat;
-			text-indent: -10em;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 3.5em;
+	line-height: 1.2;
+	outline: 0;
+	padding: 0 2em 0 2em;
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+	white-space: normal;
 			overflow: hidden;
 		}
 
@@ -2693,6 +2681,7 @@ input, select, textarea {
 		-ms-transition: -ms-transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 		transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 		cursor: default;
+		margin-bottom: 0.2em;
 	}
 
 	#intro header h2:hover {
@@ -2723,7 +2712,7 @@ input, select, textarea {
 		font-size: 1.25em;
 		font-weight: 900;
 		letter-spacing: 0.05em;
-		margin: 0.7em 0 0.9em 0;
+		margin: 0.35em 0 0.9em 0;
 		line-height: 1.5;
 		padding: 0 0.25em;
 	}
@@ -2822,7 +2811,9 @@ input, select, textarea {
 		}
 
 		#intro .hero-actions .button {
-			display: block;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			width: 100%;
 			min-width: 0;
 		}
