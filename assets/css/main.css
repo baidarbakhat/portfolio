@@ -2775,6 +2775,76 @@ input, select, textarea {
 
 	}
 
+	@media screen and (max-width: 480px) {
+
+		#intro > .content {
+			width: min(100%, 22rem);
+			padding: 0 0.75rem;
+		}
+
+		#intro header h2 {
+			font-size: clamp(2.4rem, 12vw, 4rem);
+			line-height: 0.95;
+		}
+
+		#intro .hero-greeting {
+			font-size: 0.75rem;
+			letter-spacing: 0.16em;
+		}
+
+		#intro .hero-tagline {
+			font-size: 0.8rem;
+			letter-spacing: 0.08em;
+			line-height: 1.5;
+		}
+
+		#intro .hero-desc {
+			font-size: 0.9rem;
+			line-height: 1.5;
+			max-width: 19rem;
+			margin-bottom: 1.5em;
+		}
+
+		#intro .hero-actions {
+			display: -moz-flex;
+			display: -webkit-flex;
+			display: -ms-flex;
+			display: flex;
+			-moz-flex-direction: column;
+			-webkit-flex-direction: column;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			gap: 0.9rem;
+		}
+
+		#intro .hero-actions .button {
+			display: block;
+			width: 100%;
+			min-width: 0;
+		}
+
+		#intro > .button.down.anchored {
+			bottom: 0.75em;
+		}
+
+	}
+
+	@media screen and (max-width: 360px) {
+
+		#intro .hero-tagline {
+			font-size: 0.72rem;
+		}
+
+		#intro .hero-desc {
+			font-size: 0.82rem;
+		}
+
+		#intro .hero-actions .button {
+			padding: 0.9rem 1rem;
+		}
+
+	}
+
 /* Education */
 
 	.timeline {
@@ -3580,8 +3650,30 @@ input, select, textarea {
 
 		@media screen and (max-width: 480px) {
 
+			.gallery.cards {
+				width: 100%;
+				max-width: 100%;
+			}
+
 			.gallery.cards article {
 				padding: 0.4em 0;
+				width: 100%;
+			}
+
+			.gallery.cards .card {
+				padding: 2em 1em 1.5em 1em;
+			}
+
+			.gallery.cards .card p {
+				font-size: 0.82em;
+			}
+
+			.gallery.cards .card ul.tags {
+				justify-content: flex-start;
+			}
+
+			.gallery.cards .card ul.tags li {
+				font-size: 0.66em;
 			}
 
 		}
